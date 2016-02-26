@@ -8,7 +8,6 @@
 
 - explore: users
 
-
 - explore: events
   joins:
     - join: users
