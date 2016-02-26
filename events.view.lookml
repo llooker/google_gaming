@@ -3,7 +3,7 @@
   fields:
 
   - dimension: event_id
-    primary_key: true
+#     primary_key: true
     type: string
     sql: ${TABLE}.eventId
 
@@ -89,4 +89,71 @@
   - measure: count_users
     type: count_distinct
     sql: ${user_id}
+  
+  - measure: count_sessions
+    type: count_distinct
+    sql: ${session_id}
+  
+  - measure: average_sessions_per_user
+    type: number
+    sql: ${count_sessions}/${count_users}
+    value_format_name: decimal_2
+  
+  - measure: count_start_quest_events
+    type: count
+    filter: 
+      event_id: '%startquest%'
+  
+  - measure: count_complete_quest_events
+    type: count
+    filter: 
+      event_id: '%completequest%'
+      
+  - filter: event1
+    suggest_dimension: event_id
 
+  - measure: event1_session_count
+    type: number
+    sql: | 
+      COUNT(
+        DISTINCT(
+          CASE 
+            WHEN 
+            {% condition event1 %} ${event_id} {% endcondition %} 
+              THEN ${session_id}
+            ELSE NULL END 
+        )
+      )
+  
+  - filter: event2
+    suggest_dimension: event_id
+
+  - measure: event2_session_count
+    type: number
+    sql: | 
+      COUNT(
+        DISTINCT(
+          CASE 
+            WHEN 
+            {% condition event2 %} ${event_id} {% endcondition %} 
+              THEN ${session_id}
+            ELSE NULL END 
+        )
+      )
+      
+    
+  - filter: event3
+    suggest_dimension: event_id
+
+  - measure: event3_session_count
+    type: number
+    sql: | 
+      COUNT(
+        DISTINCT(
+          CASE 
+            WHEN 
+            {% condition event3 %} ${event_id} {% endcondition %} 
+              THEN ${session_id}
+            ELSE NULL END 
+        )
+      )
