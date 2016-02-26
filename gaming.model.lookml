@@ -7,12 +7,12 @@
 # NOTE: for BigQuery specific considerations
 
 - explore: users
-  joins:
-    - join: events
-      type: left_outer #_each
-      sql_on: ${users.event_id} = ${events.event_id}
-      relationship: many_to_one
 
 
 - explore: events
+  joins:
+    - join: users
+      type: left_outer #_each
+      sql_on: ${events.user_id} = ${users.user_id}
+      relationship: many_to_many
 

@@ -1,5 +1,6 @@
 - view: users
-  sql_table_name: looker_bq_sample_dataset.[10000users]
+  sql_table_name: |
+    [looker_bq_sample_dataset.10000users]
   fields:
 
   - dimension: attack_roll
@@ -81,4 +82,8 @@
     type: count
     approximate_threshold: 100000
     drill_fields: [events.event_id]
+  
+  - measure: distinct_users
+    type: count_distinct
+    sql: ${user_id}
 

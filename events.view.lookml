@@ -85,4 +85,8 @@
     type: count
     approximate_threshold: 100000
     drill_fields: [event_id, 10000users.count]
+  
+  - measure: count_users
+    type: count_distinct
+    sql: ${user_id}
 
