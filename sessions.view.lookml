@@ -1,4 +1,3 @@
-- explore: sessions
 - view: sessions
   derived_table:
     sql: |
