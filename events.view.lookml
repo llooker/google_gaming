@@ -41,7 +41,7 @@
 
   - dimension_group: event
     type: time
-    timeframes: [time, date, week, month]
+    timeframes: [time, date, week, month, day_of_month]
     sql: ${TABLE}.eventTime
 
   - dimension: first_login
