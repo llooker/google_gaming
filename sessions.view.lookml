@@ -3,6 +3,7 @@
     sql: |
       SELECT 
         events.sessionId AS session_id
+        , events.user_id
         , min(events.eventTime) AS session_start_time
         , max(events.eventTime) AS session_end_time
         , count(distinct events.currentQuest) count_quests
@@ -19,6 +20,10 @@
     type: string
     sql: ${TABLE}.session_id
 
+  - dimension: user_id
+    type: string
+    sql: ${TABLE}.user_id
+    
   - dimension_group: session_start
     type: time
     sql: ${TABLE}.session_start_time

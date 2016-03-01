@@ -3,10 +3,26 @@
   fields:
 
   - dimension: event_id
-#     primary_key: true
     type: string
     sql: ${TABLE}.eventId
-
+  
+  - dimension: event_name
+    type: string
+    sql_case:
+      Complete Quest: ${event_id} like 'completequest%'
+      Start Quest: ${event_id} like 'startquest%'
+      Complete Tutorial: ${event_id} = 'completetutorial1'
+      Login:  ${event_id} = 'login'
+      Logout: ${event_id} = 'logout'
+      Start Tutorial: ${event_id} = 'starttutorial1'
+      Hit Player: ${event_id} = 'npchitplayer'
+      Killed Player: ${event_id} = 'npckilledplayer'
+      Missed Player: ${event_id} = 'npcmissedplayer'
+      Player Hit: ${event_id} = 'playerhitnpc'
+      Player Killed: ${event_id} = 'playerkillednpc'
+      Player Missed: ${event_id} = 'playermissednpc'
+      Other: true
+      
   - dimension: attack_roll
     type: number
     sql: ${TABLE}.attackRoll
@@ -108,7 +124,13 @@
     type: count
     filter: 
       event_id: '%completequest%'
-      
+  
+  - measure: percentage_quest_completion
+    type: number
+    sql: 100*(${count_complete_quest_events}/${count_start_quest_events})
+    value_format: '0.00\%'
+    
+    
   - filter: event1
     suggest_dimension: event_id
 
