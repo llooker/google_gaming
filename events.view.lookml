@@ -100,30 +100,35 @@
   - measure: count
     type: count
     approximate_threshold: 100000
-    drill_fields: [event_id, 10000users.count]
+    drill_fields: [detail*]
   
   - measure: count_users
     type: count_distinct
     sql: ${user_id}
+    drill_fields: [detail*]
   
   - measure: count_sessions
     type: count_distinct
     sql: ${session_id}
+    drill_fields: [detail*]
   
   - measure: average_sessions_per_user
     type: number
     sql: ${count_sessions}/${count_users}
     value_format_name: decimal_2
+    drill_fields: [detail*]
   
   - measure: count_start_quest_events
     type: count
     filter: 
       event_id: '%startquest%'
+    drill_fields: [detail*]
   
   - measure: count_complete_quest_events
     type: count
     filter: 
       event_id: '%completequest%'
+    drill_fields: [detail*]
   
   - measure: percentage_quest_completion
     type: number
@@ -132,7 +137,7 @@
     
     
   - filter: event1
-    suggest_dimension: event_id
+    suggest_dimension: events.event_name
 
   - measure: event1_session_count
     type: number
@@ -141,14 +146,15 @@
         DISTINCT(
           CASE 
             WHEN 
-            {% condition event1 %} ${event_id} {% endcondition %} 
+            {% condition event1 %} ${event_name} {% endcondition %} 
               THEN ${session_id}
             ELSE NULL END 
         )
       )
+    drill_fields: [detail*]
   
   - filter: event2
-    suggest_dimension: event_id
+    suggest_dimension: events.event_name
 
   - measure: event2_session_count
     type: number
@@ -157,15 +163,16 @@
         DISTINCT(
           CASE 
             WHEN 
-            {% condition event2 %} ${event_id} {% endcondition %} 
+            {% condition event2 %} ${event_name} {% endcondition %} 
               THEN ${session_id}
             ELSE NULL END 
         )
       )
+    drill_fields: [detail*]
       
     
   - filter: event3
-    suggest_dimension: event_id
+    suggest_dimension: events.event_name
 
   - measure: event3_session_count
     type: number
@@ -174,8 +181,19 @@
         DISTINCT(
           CASE 
             WHEN 
-            {% condition event3 %} ${event_id} {% endcondition %} 
+            {% condition event3 %} ${event_name} {% endcondition %} 
               THEN ${session_id}
             ELSE NULL END 
         )
       )
+    drill_fields: [detail*]
+  
+  sets:
+    detail:
+      - event_id
+      - event_name
+      - event_time
+      - user_id
+      - current_quest
+      - session_id
+      - session_start

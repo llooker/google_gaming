@@ -7,6 +7,8 @@
         , min(events.eventTime) AS session_start_time
         , max(events.eventTime) AS session_end_time
         , count(distinct events.currentQuest) count_quests
+        , MAX(events.currentQuest) AS last_quest
+        , MIN(events.currentQuest) AS first_quest
         , count( case when events.eventId contains 'startquest' then 1 else null end) as quests_started
         , count( case when events.eventId contains 'completequest' then 1 else null end) as quests_completed
         , COUNT(*) AS count_events
@@ -40,6 +42,14 @@
   - dimension: count_quests
     type: number
     sql: ${TABLE}.count_quests
+    
+  - dimension: first_quest
+    type: number
+    sql: ${TABLE}.first_quest
+    
+  - dimension: last_quest
+    type: number
+    sql: ${TABLE}.last_quest
 
   - dimension: quests_started
     type: number

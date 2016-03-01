@@ -24,3 +24,4 @@
       relationship: many_to_one
       view_label: "Users"
 
+- explore: user_facts

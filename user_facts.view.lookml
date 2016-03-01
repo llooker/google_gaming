@@ -5,6 +5,7 @@
         events.userId AS user_id,
         min(events.eventTime) AS first_date,
         max(events.eventTime) AS latest_date,
+        max(events.currentQuest) AS current_quest,
         COUNT(CASE WHEN ( events.eventId CONTAINS 'completequest') THEN 1 ELSE NULL END) AS quests_started,
         COUNT(CASE WHEN ( events.eventId CONTAINS 'startquest') THEN 1 ELSE NULL END) AS quests_completed,
         COUNT(DISTINCT events.sessionId, 1000) AS session_count
@@ -28,6 +29,10 @@
     type: time
     timeframes: [date, week, month, year]
     sql: ${TABLE}.latest_date
+
+  - dimension: current_quest
+    type: number
+    sql: ${TABLE}.current_quest
 
   - dimension: total_quests_started
     type: number
