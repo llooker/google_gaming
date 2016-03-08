@@ -1,9 +1,10 @@
 - view: sessions
   derived_table:
+    persist_for: 12 hours
     sql: |
       SELECT 
         events.sessionId AS session_id
-        , events.user_id
+        , events.userId as user_id
         , min(events.eventTime) AS session_start_time
         , max(events.eventTime) AS session_end_time
         , count(distinct events.currentQuest) count_quests
@@ -14,7 +15,7 @@
         , COUNT(*) AS count_events
       FROM looker_bq_sample_dataset.events AS events
       
-      GROUP EACH BY 1
+      GROUP EACH BY 1,2
 
   fields:
 

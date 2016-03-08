@@ -103,6 +103,7 @@
     drill_fields: [detail*]
   
   - measure: count_users
+    view_label: "Users"
     type: count_distinct
     sql: ${user_id}
     drill_fields: [detail*]

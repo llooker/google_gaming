@@ -1,5 +1,6 @@
 - view: user_facts
   derived_table:
+    persist_for: 12 hours
     sql: |
       SELECT 
         events.userId AS user_id,
@@ -30,7 +31,7 @@
     timeframes: [date, week, month, year]
     sql: ${TABLE}.latest_date
 
-  - dimension: current_quest
+  - dimension: highest_quest_reached
     type: number
     sql: ${TABLE}.current_quest
 

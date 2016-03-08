@@ -23,5 +23,3 @@
       sql_on: ${events.user_id} = ${user_facts.user_id}
       relationship: many_to_one
       view_label: "Users"
-
-- explore: user_facts
