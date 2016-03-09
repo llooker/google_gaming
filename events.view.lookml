@@ -135,6 +135,10 @@
     type: number
     sql: 100*(${count_complete_quest_events}/${count_start_quest_events})
     value_format: '0.00\%'
+  
+  - measure: average_quest_attempts_per_user
+    type: number
+    sql: ${count_start_quest_events}/${count_users}
     
     
   - filter: event1

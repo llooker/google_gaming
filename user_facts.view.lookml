@@ -34,6 +34,10 @@
   - dimension: highest_quest_reached
     type: number
     sql: ${TABLE}.current_quest
+  
+  - measure: average_highest_quest_reached
+    type: average
+    sql: ${highest_quest_reached}
 
   - dimension: total_quests_started
     type: number
