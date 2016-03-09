@@ -70,7 +70,13 @@
   
   - measure: average_session_duration
     type: average
+    description: Seconds
     sql: ${session_duration}
+  
+  - measure: count_users
+    type: count_distinct
+    sql: ${user_id}
+    view_label: "Users"
 
   sets:
     detail:
