@@ -1,6 +1,6 @@
 - view: sessions
   derived_table:
-    persist_for: 12 hours
+    sql_trigger_value: SELECT CURRENT_DATE()
     sql: |
       SELECT 
         events.sessionId AS session_id

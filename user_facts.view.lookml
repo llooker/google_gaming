@@ -1,6 +1,6 @@
 - view: user_facts
   derived_table:
-    persist_for: 12 hours
+    sql_trigger_value: CURRENT_DATE()
     sql: |
       SELECT 
         events.userId AS user_id,
