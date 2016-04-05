@@ -1,5 +1,5 @@
 - view: events
-  sql_table_name: looker_bq_sample_dataset.events
+  sql_table_name: looker_bq_sample_dataset.game_events_2
   fields:
 
   - dimension: event_id
@@ -41,7 +41,7 @@
 
   - dimension_group: event
     type: time
-    timeframes: [time, date, week, month, day_of_month]
+    timeframes: [time, date, week, month, day_of_month, minute]
     sql: ${TABLE}.eventTime
 
   - dimension: first_login

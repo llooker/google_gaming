@@ -13,7 +13,7 @@
         , count( case when events.eventId contains 'startquest' then 1 else null end) as quests_started
         , count( case when events.eventId contains 'completequest' then 1 else null end) as quests_completed
         , COUNT(*) AS count_events
-      FROM looker_bq_sample_dataset.events AS events
+      FROM looker_bq_sample_dataset.game_events_2 AS events
       
       GROUP EACH BY 1,2
 

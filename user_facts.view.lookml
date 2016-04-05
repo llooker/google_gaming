@@ -10,7 +10,7 @@
         COUNT(CASE WHEN ( events.eventId CONTAINS 'completequest') THEN 1 ELSE NULL END) AS quests_started,
         COUNT(CASE WHEN ( events.eventId CONTAINS 'startquest') THEN 1 ELSE NULL END) AS quests_completed,
         COUNT(DISTINCT events.sessionId, 1000) AS session_count
-      FROM looker_bq_sample_dataset.events AS events
+      FROM looker_bq_sample_dataset.game_events_2 AS events
       GROUP EACH BY 1
 
   fields:
@@ -55,6 +55,10 @@
   - dimension: total_session_count
     type: number
     sql: ${TABLE}.session_count
+    
+  - measure: total_sessions
+    type: sum
+    sql: ${total_session_count}
   
   - dimension: total_session_count_tier
     type: tier
