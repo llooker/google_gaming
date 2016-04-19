@@ -59,7 +59,23 @@
   - dimension: quests_completed
     type: number
     sql: ${TABLE}.quests_completed
-
+  
+  - dimension: quests_completed_percentage
+    type: number
+    sql: 100*(${quests_completed}/${quests_started})
+    value_format: '0.00\%'
+  
+  - dimension: quests_completed_percentage_tier
+    type: tier
+    sql: ${quests_completed_percentage}
+    tiers: [10,25,50,75,90,95,97,99]
+    style: integer
+  
+  - dimension: quests_completed_per_hour
+    type: number
+    sql: ${quests_completed}/(${session_duration}/3600)
+    value_format_name: decimal_2
+  
   - dimension: count_events
     type: number
     sql: ${TABLE}.count_events
@@ -67,6 +83,14 @@
   - measure: count
     type: count
     drill_fields: detail*
+  
+  - measure: total_quests_completed
+    type: sum
+    sql: ${quests_completed}
+  
+  - measure: total_quests_started
+    type: sum
+    sql: ${quests_started}
   
   - measure: average_session_duration
     type: average
@@ -77,12 +101,36 @@
     type: count_distinct
     sql: ${user_id}
     view_label: "Users"
+    drill_fields: detail*
+  
+  - measure: average_quests_completed_percentage
+    type: average
+    sql: ${quests_completed_percentage}
+    value_format: '0.00\%'
+  
+  - measure: standard_deviation_quests_completed_percentage
+    type: number
+    sql: STDDEV(${quests_completed_percentage})
+    value_format: '0.00\%'
+  
+  - measure: acceptable_percent_completed_range
+    type: number
+    sql: ${average_quests_completed_percentage} + 2*${standard_deviation_quests_completed_percentage}
+    value_format: '0.00\%'
+  
+  - measure: average_quests_completed_per_hour
+    type: average
+    sql: ${quests_completed_per_hour}
+    value_format_name: decimal_2
+    
+    
 
   sets:
     detail:
       - session_id
-      - session_start_time_time
-      - session_end_time_time
+      - user_id
+      - session_start_time
+      - session_end_time
       - count_quests
       - quests_started
       - quests_ended
