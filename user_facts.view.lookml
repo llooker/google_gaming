@@ -46,6 +46,11 @@
   - dimension: total_quests_completed
     type: number
     sql: ${TABLE}.quests_completed
+  
+  - dimension: total_quests_completed_tier
+    type: tier
+    tiers: [0,1,5,10,50,100]
+    sql: ${total_quests_completed}
 
   - dimension: percentage_quest_completion
     type: number
