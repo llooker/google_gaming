@@ -1,6 +1,6 @@
 - view: user_facts
   derived_table:
-    sql_trigger_value: CURRENT_DATE()
+    sql_trigger_value: SELECT CURRENT_DATE()
     sql: |
       SELECT 
         events.userId AS user_id,
