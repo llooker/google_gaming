@@ -195,9 +195,68 @@ view: events {
     drill_fields: [detail*]
   }
 
+  measure: average_attack_roll {
+    group_label: "Fight Stats"
+    type: average
+    sql: ${attack_roll} ;;
+  }
+
+  measure: average_damage_roll {
+    group_label: "Fight Stats"
+    type: average
+    sql: ${damage_roll} ;;
+  }
+
+  measure: average_npc_armor_class {
+    group_label: "Boss Stats"
+    type: average
+    sql: ${npc_armor_class} ;;
+  }
+
+  measure: average_npc_attack_points {
+    group_label: "Boss Stats"
+    type: average
+    sql: ${npc_attack_points} ;;
+  }
+
+  measure: average_npc_hit_points {
+    group_label: "Boss Stats"
+    type: average
+    sql: ${npc_hit_points} ;;
+  }
+
+  measure: average_npc_max_hit_points {
+    group_label: "Boss Stats"
+    type: average
+    sql: ${npc_max_hit_points} ;;
+  }
+
+  measure: average_player_armor_class {
+    group_label: "Player Stats"
+    type: average
+    sql: ${player_armor_class} ;;
+  }
+
+  measure: average_player_attack_points {
+    group_label: "Player Stats"
+    type: average
+    sql: ${player_attack_points} ;;
+  }
+
+  measure: average_player_hit_points {
+    group_label: "Player Stats"
+    type: average
+    sql: ${player_hit_points} ;;
+  }
+
+  measure: average_player_max_hit_points {
+    group_label: "Player Stats"
+    type: average
+    sql: ${player_max_hit_points} ;;
+    }
+
   measure: count_start_quest_events {
     type: count
-
     filters: {
       field: event_id
       value: "%startquest%"
