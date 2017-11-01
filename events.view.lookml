@@ -79,7 +79,15 @@
   - dimension: player_hit_points
     type: number
     sql: ${TABLE}.playerHitPoints
-
+    
+  - measure: total_player_hit_points
+    type: sum
+    sql: ${player_hit_points}
+    
+  - measure: avg_player_hit_points
+    type: avg
+    sql: ${player_hit_points}
+    
   - dimension: player_max_hit_points
     type: number
     sql: ${TABLE}.playerMaxHitPoints
