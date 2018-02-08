@@ -40,8 +40,8 @@ view: sessions {
 
   dimension: session_duration {
     type: number
-    sql: (TIMESTAMP_TO_USEC(${TABLE}.session_end_time) - TIMESTAMP_TO_USEC(${TABLE}.session_start_time))/1000000 ;;
-    description: "Seconds"
+    sql: (TIMESTAMP_TO_USEC(${TABLE}.session_end_time) - TIMESTAMP_TO_USEC(${TABLE}.session_start_time))/(1000000*60) ;;
+    description: "Minutes"
   }
 
   dimension: count_quests {
@@ -110,7 +110,7 @@ view: sessions {
 
   measure: average_session_duration {
     type: average
-    description: "Seconds"
+    description: "Minutes"
     sql: ${session_duration} ;;
   }
 

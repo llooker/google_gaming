@@ -41,6 +41,7 @@ view: user_facts {
   measure: average_highest_quest_reached {
     type: average
     sql: ${highest_quest_reached} ;;
+    value_format_name: decimal_0
   }
 
   dimension: total_quests_started {
